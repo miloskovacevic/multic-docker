@@ -20,6 +20,3 @@ after_success:
     - docker push miloscpt/multic-nginx 
     - docker push miloscpt/multic-server 
     - docker push miloscpt/multic-worker
-
-
-    
