@@ -6,17 +6,17 @@ before_install:
     - docker build -t miloscpt/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-    - docker run miloscpt/react-test npm test -- --coverage
+    - docker run -e CI=true miloscpt/react-test npm test
 
 after_success:
-    - docker build -t miloscpt/multic-client ./client
+    - docker build -t miloscpt/multicc-client ./client
     - docker build -t miloscpt/multic-nginx  ./nginx
     - docker build -t miloscpt/multic-server ./server
     - docker build -t miloscpt/multic-worker ./worker
     # login into docker cli
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
     # take images and push them to Docker Hub
-    - docker push miloscpt/multic-client 
-    - docker push miloscpt/multic-nginx 
-    - docker push miloscpt/multic-server 
+    - docker push miloscpt/multicc-client
+    - docker push miloscpt/multic-nginx
+    - docker push miloscpt/multic-server
     - docker push miloscpt/multic-worker
